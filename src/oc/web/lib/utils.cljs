@@ -192,7 +192,7 @@
   (js/console.log "DBG scroll-to-y elem" (.. js/document -scrollingElement))
   (js/console.log "DBG    scrollTop" (.. js/document -scrollingElement -scrollTop))
   (if (and duration (zero? duration))
-    (if (js/isMs)
+    (if (js/isMS)
       (set! (.. js/document -scrollingElement -scrollTop) scroll-y)
       (.scrollTo (.-scrollingElement js/document) 0 scroll-y))
     (.play
