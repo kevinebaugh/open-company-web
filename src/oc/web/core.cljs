@@ -618,7 +618,7 @@
       (when-not (.-isNavigation e)
         ;; in this case, we're setting it so
         ;; let's scroll to the top to simulate a navigation
-        (if (js/isMs)
+        (if (js/isMS)
           (set! (.. js/document -scrollingElement -scrollTop) 0)
           (js/window.scrollTo 0 0)))
       ;; dispatch on the token

@@ -189,6 +189,8 @@
     (map #(-> (conj % "0x") (clojure.string/join) (reader/read-string)) [red green blue])))
 
 (defn scroll-to-y [scroll-y & [duration]]
+  (js/console.log "DBG scroll-to-y elem" (.. js/document -scrollingElement))
+  (js/console.log "DBG    scrollTop" (.. js/document -scrollingElement -scrollTop))
   (if (and duration (zero? duration))
     (if (js/isMs)
       (set! (.. js/document -scrollingElement -scrollTop) scroll-y)
@@ -201,6 +203,8 @@
            (if (integer? duration) duration oc-animation-duration)))))
 
 (defn scroll-to-bottom [elem & [animated]]
+  (js/console.log "DBG scroll-to-bottom elem" elem)
+  (js/console.log "DBG    scrollTop" (.-scrollTop elem))
   (let [elem-scroll-top (.-scrollHeight elem)]
     (.play
     (new Scroll

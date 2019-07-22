@@ -261,7 +261,9 @@ function isFireFox(){
 
 function isEdge(){
   if (navigator.appName == 'Microsoft Internet Explorer' ||
-      !!(navigator.userAgent.match(/Trident/) || navigator.userAgent.match(/rv:11/) || navigator.userAgent.match(/Edge\/\d+/)))
+      !!(navigator.userAgent.match(/Trident/) ||
+         navigator.userAgent.match(/rv:11/) ||
+         navigator.userAgent.match(/Edge\/\d+/)))
   {
     return true;
   }else{
@@ -280,7 +282,7 @@ function isIE(){
   }
 }
 
-function isMs() {
+function isMS() {
   return isIE() || isEdge();
 }
 
