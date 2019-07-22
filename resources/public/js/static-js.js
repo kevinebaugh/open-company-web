@@ -280,6 +280,10 @@ function isIE(){
   }
 }
 
+function isMs() {
+  return isIE() || isEdge();
+}
+
 function OCStaticSiteMobileMenuToggle(){
   var menuClass = "mobile-menu-expanded";
   var body = document.body;

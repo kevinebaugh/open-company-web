@@ -190,7 +190,7 @@
 
 (defn scroll-to-y [scroll-y & [duration]]
   (if (and duration (zero? duration))
-    (if (js/isEdge)
+    (if (js/isMs)
       (set! (.. js/document -scrollingElement -scrollTop) scroll-y)
       (.scrollTo (.-scrollingElement js/document) 0 scroll-y))
     (.play
