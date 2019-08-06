@@ -141,7 +141,6 @@ document.addEventListener("DOMContentLoaded", function(_) {
   // Sticky header for marketing site
   if ( $("nav.site-navbar").length > 0) {
     $(window).on("scroll", function(){
-      console.log("DBG $window scrollTop");
       if ($(window).scrollTop() < 100) {
         $("nav.site-navbar").removeClass("sticky");
       }else{
@@ -306,7 +305,6 @@ function OCStaticStartFixFixedPositioning(sel) {
   var $navbar = $(sel);
 
   var fixFixedPosition = function() {
-    console.log("DBG $navbar cs scrollTop");
     $navbar.css({
       position: 'absolute',
       top: document.body.scrollTop + 'px'
@@ -320,7 +318,6 @@ function OCStaticStartFixFixedPositioning(sel) {
     $(document).off('scroll', updateScrollTop);
   };
   var updateScrollTop = function() {
-    console.log("DBG document.body.scrollTop");
     $navbar.css('top', document.body.scrollTop + 'px');
   };
 
