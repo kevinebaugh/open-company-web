@@ -28,7 +28,7 @@
         post-url (oc-urls/entry board activity)
         query-params (router/query-params)
         route [org board activity "activity"]
-        scroll-y-position (if (js/isMS)(.. js/document -scrollingElement -scrollTop))]
+        scroll-y-position (.. js/document -scrollingElement -scrollTop)]
     (router/set-route! route {:org org
                               :board board
                               :sort-type (router/current-sort-type)
