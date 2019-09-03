@@ -167,7 +167,8 @@
                              ;; Default to complete follow-up on add comment if user has one
                              (when (and follow-up
                                         (not (:completed? follow-up)))
-                               (reset! (::complete-follow-up s) true)))
+                               (reset! (::complete-follow-up s) true)
+                               (reset! (::show-post-button s) true)))
                            (me-media-utils/setup-editor s add-comment-did-change (me-options (second (:rum/args s))))
                            (let [add-comment-node (rum/ref-node s "editor-node")]
                              (when (should-focus-field? s)
@@ -305,6 +306,7 @@
                :title "Complete follow-up when the comment is posted"
                :on-click #(do
                            (utils/event-stop %)
+                           (reset! (::show-post-button s) true)
                            (swap! (::complete-follow-up s) not))}
               (carrot-checkbox {:selected @(::complete-follow-up s)})
               "Complete follow-up"])]]]))
