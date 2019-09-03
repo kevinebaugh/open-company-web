@@ -167,8 +167,7 @@
                              ;; Default to complete follow-up on add comment if user has one
                              (when (and follow-up
                                         (not (:completed? follow-up)))
-                               (reset! (::complete-follow-up s) true)
-                               (reset! (::show-post-button s) true)))
+                               (reset! (::complete-follow-up s) true)))
                            (me-media-utils/setup-editor s add-comment-did-change (me-options (second (:rum/args s))))
                            (let [add-comment-node (rum/ref-node s "editor-node")]
                              (when (should-focus-field? s)
