@@ -1,5 +1,6 @@
 (ns oc.core
   (:require [oc.pages :as pages]
+            [oc.pages.shared :as shared]
             [boot.util :as util]
             [hiccup.page :as hp]
             [environ.core :refer (env)]))
@@ -23,9 +24,9 @@
     pages/google-fonts
     pages/bootstrap-css
     ;; Local css
-    [:link {:href (pages/cdn "/css/app.main.css"), :rel "stylesheet"}]
+    [:link {:href (shared/cdn "/css/app.main.css"), :rel "stylesheet"}]
     ;; Fallback for the CDN compacted css
-    [:link {:href (pages/cdn "/main.css") :rel "stylesheet"}]
+    [:link {:href (shared/cdn "/main.css") :rel "stylesheet"}]
     ;; HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries
     ;; WARNING: Respond.js doesn't work if you view the page via file://
     "<!--[if lt IE 9]>
@@ -34,14 +35,14 @@
     <![endif]-->"
     pages/font-awesome
     ;; Favicon
-    [:link {:rel "icon" :type "image/png" :href (pages/cdn "/img/carrot_logo.png") :sizes "64x64"}]
+    [:link {:rel "icon" :type "image/png" :href (shared/cdn "/img/carrot_logo.png") :sizes "64x64"}]
     ;; jQuery needed by Bootstrap JavaScript
     pages/jquery
     pages/ie-jquery-fix
     ;; Static js files
-    [:script {:src (pages/cdn "/js/static-js.js")}]
+    [:script {:src (shared/cdn "/js/static-js.js")}]
     ;; Intercom (Support chat)
-    [:script {:src (pages/cdn "/js/intercom.js")}]
+    [:script {:src (shared/cdn "/js/intercom.js")}]
     ;; Google Analytics
     [:script {:type "text/javascript" :src "https://www.google-analytics.com/analytics.js"}]
     [:script {:type "text/javascript" :src "/lib/autotrack/autotrack.js"}]
@@ -101,10 +102,31 @@
             {:href "/"
              :class (when (= active-page "index") "active")}
             "Home"]
-          [:a
-            {:href "/about"
-             :class (when (= active-page "about") "active")}
-            "About"]
+          [:div.apps-container
+            [:button.mlb-reset.apps-bt
+              {:class (when (= active-page "about") "active")}
+              "Apps"]
+            [:div.apps-dropdown-menu
+              [:div.app-items-group
+                "Desktop apps"]
+              [:a.app-item
+                {:href "/app/mac"}
+                [:span "Mac"]
+                [:span.beta "BETA"]]
+              [:a.app-item
+                {:href "/app/win"}
+                [:span "Windows"]
+                [:span.beta "BETA"]]
+              [:div.app-items-group
+                "Mobile apps"]
+              [:a.app-item
+                {:href "/app/android"}
+                [:span "Android"]
+                [:span.beta "BETA"]]
+              [:a.app-item
+                {:href "/app/iphone"}
+                [:span "iPhone"]
+                [:span.beta "BETA"]]]]
           [:a
             {:href "/pricing"
              :class (when (= active-page "pricing") "active")}
@@ -114,42 +136,26 @@
             {:id "site-header-login-item"
              :href "/login"}
               "Login"]
-          [:a.start
+          [:span.login-signup-or "or"]
+          [:a.signup
             {:id "site-header-signup-item"
-             :href (if use-slack-url?
-                      (env :slack-signup-url)
-                      "/sign-up")
-             :class (when use-slack-url?
-                      "slack-get-started")}
-            (when use-slack-url?
-              [:span.slack-orange-icon])
-            [:span.start-copy
-              (if is-slack-lander?
-                "Continue with Slack"
-                (if (= active-page "slack")
-                  "Add to Slack"
-                  "Get Started"))]]]
+             :href "/sign-up"}
+            "Sign up"]]
         [:div.site-navbar-right.tablet-only
           [:a.login
             {:id "site-header-tablet-login-item"
              :href "/login"}
               "Login"]
-          [:a.start
+          [:span.login-signup-or "or"]
+          [:a.signup
             {:id "site-header-tablet-signup-item"
-             :href (if use-slack-url?
-                      (env :slack-signup-url)
-                      "/sign-up")}
-            [:span.start-copy
-              "Start Free"]]]
+             :href "/sign-up"}
+            "Sign up"]]
         [:div.site-navbar-right.mobile-only
-          [:a.start
+          [:a.login
             {:id "site-header-mobile-signup-item"
-             :class (when (= active-page "slack") "slack")
-             :href (if (= active-page "slack")
-                     (env :slack-signup-url)
-                     "/sign-up")}
-              [:span.copy
-                "START"]]]
+             :href "/login"}
+            "Login"]]
         [:div.mobile-ham-menu
           {:onClick "javascript:OCStaticSiteMobileMenuToggle();"}]]]))
 
@@ -159,7 +165,6 @@
   [page]
   ;; NB: copy of oc.web.components.ui.site-footer, every change should be reflected there and vice-versa
   [:footer.navbar.navbar-default.navbar-bottom
-    {:class (when (= page :slack-lander) "no-border")}
     [:div.container-fluid.group
       [:div.right-column.group
 
@@ -167,46 +172,42 @@
           [:div.column-title
             "Product"]
           [:div.column-item [:a {:href "/pricing"} "Pricing"]]
-          [:div.column-item [:a {:href "https://trello.com/b/eKs2LtLu" :target "_blank"} "Roadmap"]]
           [:div.column-item [:a {:href "https://carrot.news/" :target "_blank"} "What’s new"]]
-          [:div.column-item [:a {:href "https://github.com/open-company" :target "_blank"} "GitHub"]]]
+          [:div.column-item [:a {:href "https://github.com/open-company" :target "_blank"} "GitHub"]]
+          [:div.column-item [:a {:href "/slack"} "Slack integration"]]]
 
         [:div.column.column-resources
           [:div.column-title
             "Company"]
-          [:div.column-item [:a {:href "/about"} "About Carrot"]]
-          [:div.column-item [:a {:href "https://blog.carrot.io" :target "_blank"} "Blog"]]
+          [:div.column-item [:a {:href "/about"} "About"]]
           [:div.column-item [:a {:href "https://twitter.com/carrot_hq" :target "_blank"} "Twitter"]]
-          [:div.column-item [:a {:href "/press-kit"} "Press Kit"]]
-          [:div.column-item [:a {:class "intercom-chat-link"
-                                 :href "mailto:zcwtlybw@carrot-test-28eb3360a1a3.intercom-mail.com"}
-                              "Contact"]]]
+          [:div.column-item [:a {:href "https://blog.carrot.io" :target "_blank"} "Blog"]]]
 
         [:div.column.column-support
           [:div.column-title
             "Resources"]
-          [:div.column-item [:a {:href "http://help.carrot.io/" :target "_blank"} "Help center"]]
-          ;[:div.column-item [:a {:href "#" :target "_blank"} "Leadership in the age of Slack"]]
-          ;[:div.column-item [:a {:href "#" :target "_blank"} "How Slack works with Carrot"]]
-          ;[:div.column-item [:a {:href "#" :target "_blank"} "Carrot AI eliminates communication gaps"]]
-          ]]
+          [:div.column-item [:a {:href "https://trello.com/b/eKs2LtLu" :target "_blank"} "Roadmap"]]
+          [:div.column-item [:a {:href "https://intercom.help/carrot-c8000b30b176/en" :target "_blank"} "Help center"]
+          [:div.column-item
+            [:a
+              {:class "intercom-chat-link"
+               :href "mailto:zcwtlybw@carrot-test-28eb3360a1a3.intercom-mail.com"}
+              "Contact us"]]]]]
       [:div.left-column.group
         [:img.logo
-          {:src (pages/cdn "/img/ML/carrot_wordmark.svg")}]
-        [:div.footer-communication-copy
-          "Leadership communication for fast-growing and remote teams."]
+          {:src (shared/cdn "/img/ML/carrot_wordmark.svg")}]
         [:div.footer-small-links.static
-          [:a {:href "/sign-up"} "Get started for free"]
+          [:a {:href "/login"} "Login"]
           "or"
-          [:a {:href "/login"} "Login"]]
-        [:div.copyright
-          "© 2015-2019 Carrot"]
+          [:a {:href "/sign-up"} "create your team"]]
         [:div.tos-and-pp
           [:a {:href "/privacy"}
            "Privacy"]
-          " • "
+          " & "
           [:a {:href "/terms"}
-           "Terms"]]]]])
+           "Terms"]]
+        [:div.copyright
+          "© 2019 Carrot"]]]])
 
 
 (defn read-edn [entry]

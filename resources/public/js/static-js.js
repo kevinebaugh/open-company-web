@@ -412,3 +412,19 @@ function isiPhoneWithoutPhysicalHomeBt(){
   }
   return false;
 }
+
+(function(){
+  $(document).ready(function(){
+    
+    var $appsBt = $("button.apps-bt");
+    if ($appsBt.length > 0) {
+      $appsBt.click(function(event){
+        event.stopPropagation();
+        $("div.apps-container").toggleClass("dropdown-menu-visible");
+      });
+      $(window).click(function(event){
+        $("div.apps-container").removeClass("dropdown-menu-visible");
+      });
+    }
+  });
+})();
