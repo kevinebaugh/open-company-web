@@ -35,6 +35,7 @@
     @include mobile(){
       padding-left: 32px;
       padding-right: 32px;
+      margin-bottom: 40px;
     }
 
     div.left-column {
@@ -46,7 +47,12 @@
         width: 100%;
         float: none;
         padding-top: 40px;
-        border-top: 1px solid $more_ultra_light_grey;
+      }
+
+      @include mobile() {
+        float: unset;
+        width: 100%;
+        text-align: center;
       }
 
       img.logo {
@@ -100,7 +106,10 @@
         max-width: 180px;
 
         @include mobile(){
-          text-align: left;
+          text-align: center;
+          max-width: unset;
+          width: 100%;
+          margin-top: 0;
         }
       }
 
@@ -110,16 +119,19 @@
         color: $ui_grey;
         max-width: 180px;
 
+        @include mobile() {
+          width: 100%;
+          max-width: initial;
+          text-align: center;
+          margin-top: 16px;
+        }
+
         a {
           color: $ui_grey;
 
           &:hover {
             text-decoration: underline;
           }
-        }
-
-        @include mobile(){
-          text-align: left;
         }
       }
     }
@@ -135,6 +147,10 @@
         padding-bottom: 40px;
       }
 
+      @include mobile() {
+        float: unset;
+      }
+
       div.column {
         float: left;
         margin-right: 40px;
@@ -142,14 +158,6 @@
 
         &:nth-child(3) {
           width: 300px;
-        }
-
-        @include mobile() {
-          width: 48%;
-
-          &:nth-child(2), &:nth-child(3) {
-            float: left;
-          }
         }
 
         @media screen and (max-width: 1200px) {
@@ -164,13 +172,19 @@
           margin-right: 0px;
         }
 
-        @include mobile(){
-          margin-right: 0px;
-          margin-bottom: 20px;
-        }
-
         &:last-child {
           margin-right: 0px;
+        }
+
+        @include mobile() {
+          margin-right: 0px;
+          margin-bottom: 40px;
+          width: 100%;
+          text-align: center;
+
+          &:nth-child(3) {
+            width: 100%;
+          }
         }
 
         div.column-title {
