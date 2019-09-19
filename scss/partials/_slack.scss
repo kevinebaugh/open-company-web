@@ -8,6 +8,10 @@ div.slack-wrap {
       background-color: $ultra_light_gold;
     }
 
+    section.pricing-footer {
+      background-color: $another_ui_grey;
+    }
+
     section.carrot-plus-slack {
       padding-top: 138px;
       padding-bottom: 80px;
@@ -36,6 +40,12 @@ div.slack-wrap {
         display: block;
         content: "";
         max-width: 1200px;
+
+        @include mobile() {
+          border-radius: 0;
+          left: 0;
+          transform: translateX(0%);
+        }
       }
 
       h1.slack-headline {
@@ -77,6 +87,11 @@ div.slack-wrap {
           line-height: 32px;
           max-width: 660px;
         }
+
+        @include mobile() {
+          font-size: 20px;
+          line-height: 26px;
+        }
       }
     }
 
@@ -91,6 +106,7 @@ div.slack-wrap {
         display: block;
         justify-content: initial;
         align-items: initial;
+        margin: 24px auto 40px;
       }
 
       a, button {
