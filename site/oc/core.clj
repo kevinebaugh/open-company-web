@@ -66,13 +66,13 @@
           "Home"]]
       [:div.site-mobile-menu-item
         [:a
-          {:href "/apps/detect"}
-          "Get the mobile app"]]
-      [:div.site-mobile-menu-item
-        [:a
           {:href "/pricing"
            :class (when (= active-page "pricing") "active")}
-          "Pricing"]]]
+          "Pricing"]]
+      [:div.site-mobile-menu-item
+        [:a
+          {:href "/apps/detect"}
+          "Get the mobile app"]]]
     [:div.site-mobile-menu-footer
       [:button.mlb-reset.login-btn
         {:id "site-mobile-menu-login"}
@@ -195,7 +195,6 @@
         [:div.column.column-support
           [:div.column-title
             "Resources"]
-          [:div.column-item [:a {:href "https://trello.com/b/eKs2LtLu" :target "_blank"} "Roadmap"]]
           [:div.column-item [:a {:href "https://intercom.help/carrot-c8000b30b176/en" :target "_blank"} "Help center"]
           [:div.column-item
             [:a
@@ -228,7 +227,7 @@
       [:div.ph-banner-cat]
       [:div.ph-banner-copy
         [:span.heavy "Hello Product Hunter! "]
-        " We can't wait to hear what you think about our new Remove Team edition."]]
+        " We can't wait to hear what you think about Carrot 2.0."]]
     [:div.ph-banner-opac-bg]
     [:button.mlb-reset.ph-banner-close-button
       {:onclick "OCStaticHidePHBanner();"}]])
