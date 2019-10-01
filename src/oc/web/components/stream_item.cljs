@@ -236,7 +236,8 @@
                     ;     [:button.mlb-reset.post-added-tooltip-bt
                     ;       {:on-click #(nux-actions/dismiss-post-added-tooltip)}
                     ;       "OK, got it"]])
-                    (wrt-count activity-data read-data)])
+                    (wrt-count {:activity-data activity-data
+                                :reads-data read-data})])
                 (when (seq activity-attachments)
                   [:div.stream-item-attachments
                     {:ref :stream-item-attachments}
