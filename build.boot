@@ -15,7 +15,7 @@
     ;; Rum React Frameworks
     ;; Didn't update to 15.5.4+ just yet since it requires some changes to oc.web.rum-utils to remove .-PropTypes access
     ;; and some change to omcljs/om to not use createClass anymore. See React docs for more info.
-    [cljsjs/react "16.2.0-3"] ; A Javascript library for building user interfaces https://github.com/cljsjs/packages
+    [cljsjs/react "16.9.0-0"] ; A Javascript library for building user interfaces https://github.com/cljsjs/packages
     [cljsjs/react-dom "16.2.0-3"] ; A Javascript library for building user interfaces https://github.com/cljsjs/packages
     [rum "0.11.2" :exclusions [cljsjs/react]] ; https://github.com/tonsky/rum
     [org.martinklepsch/derivatives "0.3.1-alpha"] ; Chains of derived data https://github.com/martinklepsch/derivatives
