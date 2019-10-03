@@ -9,7 +9,7 @@
             [oc.web.actions.user :as user-actions]
             [oc.web.actions.routing :as routing-actions]))
 
-(def default-max-logo-height 42)
+(def default-max-logo-height 96) ;; 32 * 3 for retina
 
 (defn internal-org-avatar
   [s org-data show-org-avatar? show-org-name?]
@@ -17,7 +17,7 @@
     {:class (utils/class-set {:no-avatar (not show-org-avatar?)})}
     (when show-org-avatar?
       [:img.org-avatar-img
-       {:src (-> org-data :logo-url (img/optimize-image-url default-max-logo-height))
+       {:src (-> org-data :logo-url (img/optimize-org-avatar-url default-max-logo-height))
          :on-error #(reset! (::img-load-failed s) true)}])
     (when show-org-name?
       [:span.org-name
