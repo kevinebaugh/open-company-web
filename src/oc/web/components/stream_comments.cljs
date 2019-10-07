@@ -231,18 +231,19 @@
                     (when-not is-editing?
                       (if (responsive/is-tablet-or-mobile?)
                         [:div.stream-comment-mobile-menu
-                          (more-menu comment-data nil {:external-share false
-                                                       :entity-type "comment"
-                                                       :show-edit? true
-                                                       :edit-cb (partial start-editing s)
-                                                       :show-delete? true
-                                                       :delete-cb (partial delete-clicked s activity-data)
-                                                       :can-comment-share? true
-                                                       :comment-share-cb #(share-clicked comment-data)
-                                                       :can-react? true
-                                                       :react-cb #(reset! (::show-picker s) (:uuid comment-data))
-                                                       :can-reply? true
-                                                       :reply-cb #(reply-to s (:reply-parent comment-data))})
+                          (more-menu {:entity-data comment-data
+                                      :external-share false
+                                      :entity-type "comment"
+                                      :show-edit? true
+                                      :edit-cb (partial start-editing s)
+                                      :show-delete? true
+                                      :delete-cb (partial delete-clicked s activity-data)
+                                      :can-comment-share? true
+                                      :comment-share-cb #(share-clicked comment-data)
+                                      :can-react? true
+                                      :react-cb #(reset! (::show-picker s) (:uuid comment-data))
+                                      :can-reply? true
+                                      :reply-cb #(reply-to s (:reply-parent comment-data))})
                           (when showing-picker?
                             (emoji-picker-container s comment-data))]
                         [:div.stream-comment-floating-buttons
@@ -318,7 +319,67 @@
                           (when (and (not= (-> comment-data :author :user-id) current-user-id)
                                      (< (.getTime (utils/js-date last-read-at))
                                         (.getTime (utils/js-date (:created-at comment-data)))))
-                            [:div.new-comment-tag "(NEW)"])]]
+                            [:div.new-comment-tag "(NEW)"])
+                          (when-not is-editing?
+                            (if (responsive/is-tablet-or-mobile?)
+                              [:div.stream-comment-mobile-menu
+                                (more-menu comment-data nil {:external-share false
+                                                             :entity-type "comment"
+                                                             :show-edit? true
+                                                             :edit-cb (partial start-editing s)
+                                                             :show-delete? true
+                                                             :delete-cb (partial delete-clicked s activity-data)
+                                                             :can-comment-share? true
+                                                             :comment-share-cb #(share-clicked comment-data)
+                                                             :can-react? true
+                                                             :react-cb #(reset! (::show-picker s) (:uuid comment-data))
+                                                             :can-reply? true
+                                                             :reply-cb #(reply-to s (:reply-parent comment-data))})
+                                (when showing-picker?
+                                  (emoji-picker-container s comment-data))]
+                              [:div.stream-comment-floating-buttons
+                                {:key (str "stream-comment-floating-buttons"
+                                       (when can-show-edit-bt?
+                                         "-edit")
+                                       (when can-show-delete-bt?
+                                         "-delete"))}
+                                [:button.mlb-reset.floating-bt.share-bt.separator-bt
+                                  {:data-toggle "tooltip"
+                                   :data-placement "top"
+                                   :on-click #(do
+                                                (copy-comment-url (:url comment-data))
+                                                (notification-actions/show-notification {:title "Share link copied to clipboard"
+                                                                                         :dismiss true
+                                                                                         :expire 3
+                                                                                         :id (keyword (str "comment-url-copied-"
+                                                                                          (:uuid comment-data)))}))
+                                   :title "Copy link"}]
+                                ;; React container
+                                [:div.react-bt-container.separator-bt
+                                  [:button.mlb-reset.floating-bt.react-bt
+                                    {:data-toggle "tooltip"
+                                     :data-placement "top"
+                                     :title "Add reaction"
+                                     :on-click #(reset! (::show-picker s) (:uuid comment-data))}]
+                                  (when showing-picker?
+                                    (emoji-picker-container s comment-data))]
+                                ;; Reply to comment
+                                (when (:reply-parent comment-data)
+                                  [:button.mlb-reset.floating-bt.reply-bt.separator-bt
+                                    {:data-toggle "tooltip"
+                                     :data-placement "top"
+                                     :on-click #(reply-to s (:reply-parent comment-data))
+                                     :title "Reply"}])
+                                (when can-show-delete-bt?
+                                  [:button.mlb-reset.floating-bt.delete-bt.separator-bt
+                                    {:on-click (fn [_]
+                                                (delete-clicked s activity-data comment-data))}
+                                    "Delete"])
+                                (when can-show-edit-bt?
+                                  [:button.mlb-reset.floating-bt.edit-bt.separator-bt
+                                    {:on-click (fn [_]
+                                                (start-editing s comment-data))}
+                                    "Edit"])]))]]
                       [:div.stream-comment-content
                         [:div.stream-comment-body.oc-mentions.oc-mentions-hover
                           {:dangerouslySetInnerHTML (utils/emojify (:body comment-data))
