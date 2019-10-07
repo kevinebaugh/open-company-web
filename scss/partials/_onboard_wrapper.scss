@@ -156,8 +156,10 @@ div.onboard-email-container {
       width: 100%;
     }
 
-    &.disabled {
+    &.disabled, &:disabled {
       background-color: $light_ui_grey;
+      opacity: 1 !important;
+      cursor: not-allowed;
     }
   }
 }
@@ -237,7 +239,7 @@ div.onboard-lander {
           color: $carrot_green;
           text-align: right;
 
-          &.disabled {
+          &.disabled, &:disabled {
             color: $light_ui_grey;
             opacity: 0;
           }
@@ -301,8 +303,10 @@ div.onboard-lander {
         width: 100%;
       }
 
-      &.disabled {
+      &.disabled, &:disabled {
         background-color: $light_ui_grey;
+        opacity: 1 !important;
+        cursor: not-allowed;
       }
     }
   }
@@ -858,8 +862,10 @@ div.onboard-lander {
         }
       }
 
-      &.disabled {
+      &.disabled, &:disabled {
         background-color: $light_ui_grey;
+        opacity: 1 !important;
+        cursor: not-allowed;
       }
     }
 

@@ -131,25 +131,15 @@
                         "Forgot password?"]]]
                   [:button.mlb-reset.continue-btn
                     {:aria-label "Login"
-                     :class (when-not login-enabled "disabled")
+                     :disabled (not login-enabled)
                      :on-click login-action}
-                    "Login"]
+                    "Log in"]
                   [:div.footer-link
                     "Don't have an account yet?"
                     [:a
-                      {:on-click #(user-actions/show-login :password-reset)}
-                      "Forgot password?"]]]
-                [:button.mlb-reset.continue-btn
-                  {:aria-label "Login"
-                   :class (when-not login-enabled "disabled")
-                   :on-click login-action}
-                  "Continue"]
-                [:div.footer-link
-                  "Don't have an account yet?"
-                  [:a
-                    {:href oc-urls/sign-up
-                     :on-click (fn [e]
-                                 (utils/event-stop e)
-                                 (router/nav! oc-urls/sign-up))}
-                    "Sign up here"]]
+                      {:href oc-urls/sign-up
+                       :on-click (fn [e]
+                                   (utils/event-stop e)
+                                   (router/nav! oc-urls/sign-up))}
+                      "Sign up here"]]]
                ]]]]])))
