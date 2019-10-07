@@ -201,14 +201,11 @@
       ;   [:div.expanded-post-mobile-reactions
       ;     (reactions activity-data)])
       [:div.expanded-post-footer.group
-        (when is-mobile?
-          (reactions activity-data))
+        (reactions activity-data)
         [:div.expanded-post-footer-mobile-group
           (comments-summary {:entry-data activity-data
                              :comments-data comments-data
                              :show-new-tag? has-new-comments?})
-          (when-not is-mobile?
-            (reactions activity-data))
           (when user-is-part-of-the-team
             [:div.expanded-post-wrt-container
               (wrt-count {:activity-data activity-data
