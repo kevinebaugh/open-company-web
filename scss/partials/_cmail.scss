@@ -928,6 +928,7 @@ div.cmail-outer {
 
         @include mobile() {
           min-height: calc(100vh - 334px);
+          padding-top: 16px;
         }
       }
 
