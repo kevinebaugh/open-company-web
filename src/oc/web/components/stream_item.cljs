@@ -132,7 +132,7 @@
                          (nav-actions/open-post-modal activity-data false)))))
        :id dom-element-id}
       [:div.stream-item-header.group
-        [:div.stream-header-head-author
+        [:div.stream-header-head-author.group
           (user-avatar-image publisher)
           [:div.name
             [:div.mobile-name
