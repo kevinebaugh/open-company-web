@@ -1,4 +1,5 @@
 $foc_background_color: transparent;
+$mobile_foc_background_color: rgba($deep_navy, 0.05);
 $foc_hover_color: #F5F5F5;
 $foc_new_color: white;
 $foc_divider_line_color: rgba($deep_navy, 0.15);
@@ -35,9 +36,10 @@ div.stream-item {
     margin: 0;
     border-radius: 0;
     border-top: none;
-    border-bottom: 1px solid $divider_line_grey;
-    background-color: $grey_num_4;
+    border-bottom: 1px solid $foc_divider_line_color;
+    background-color: $mobile_foc_background_color;
     padding: 16px 16px 16px;
+    height: #{$mobile_foc_height}px;
   }
 
   &.draft {
@@ -117,8 +119,9 @@ div.stream-item {
           display: inline-block;
 
           @include mobile() {
-            display: flex;
-            align-items: center;
+            display: block;
+            white-space: nowrap;
+            float: left;
           }
 
           div.name-inner {
@@ -129,9 +132,9 @@ div.stream-item {
             margin-right: 8px;
 
             @include mobile() {
-              flex: 1;
-              min-width: 0;
               display: block;
+              white-space: nowrap;
+              float: left;
             }
           }
 
@@ -141,7 +144,13 @@ div.stream-item {
             @include mobile() {
               display: block;
               white-space: nowrap;
+              float: left;
+              line-height: 24px;
             }
+          }
+
+          div.follow-up-tag-small {
+            float: left;
           }
         }
       }
@@ -243,6 +252,10 @@ div.stream-item {
       position: relative;
       cursor: pointer;
 
+      @include mobile() {
+        min-height: 80px;
+      }
+
       div.ziggeo-player {
         width: 106px;
         height: 80px;
@@ -293,6 +306,16 @@ div.stream-item {
           object-fit: contain;
           max-width: 106px;
           max-height: 80px;
+        }
+
+        @include mobile() {
+          width: 95px;
+          top: 0;
+
+          img.body-thumbnail {
+            max-height: 72px;
+            max-width: 95px;
+          }
         }
 
         &.video {
@@ -366,18 +389,18 @@ div.stream-item {
         @include activity-body(17, 22, $deep_navy);
         color: $deep_navy;
         @include OC_Body_Book();
-        line-height: 20px;
+        line-height: 22px;
         overflow: hidden;
         white-space: pre-wrap;
         word-break: break-word;
 
-        max-height: #{20 * 2}px;
+        max-height: #{22 * 2}px;
 
         h2 {
           color: $deep_navy;
           @include OC_Body_Book();
-          font-size: 16px;
-          line-height: 20px;
+          font-size: 17px;
+          line-height: 22px;
         }
 
         b, strong, &.editing b, &.editing strong {
