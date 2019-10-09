@@ -26,7 +26,6 @@
             [oc.web.components.ui.empty-org :refer (empty-org)]
             [oc.web.components.ui.lazy-stream :refer (lazy-stream)]
             [oc.web.components.ui.empty-board :refer (empty-board)]
-            [oc.web.components.expanded-post :refer (expanded-post)]
             [oc.web.components.ui.dropdown-list :refer (dropdown-list)]
             [oc.web.components.user-notifications :as user-notifications]
             [oc.web.components.navigation-sidebar :refer (navigation-sidebar)]
