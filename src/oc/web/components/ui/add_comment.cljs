@@ -229,11 +229,7 @@
                                      :medium-editor-placeholder-hidden @(::did-change s)
                                      utils/hide-class true})
             :on-focus #(focus-add-comment s)
-            :on-blur #(if parent-comment-uuid
-                        (let [add-comment-node (rum/ref-node s "editor-node")]
-                          (when-not (seq (.-innerHTML add-comment-node))
-                            (dismiss-reply-cb true)))
-                        (disable-add-comment-if-needed s))
+            :on-blur #(disable-add-comment-if-needed s)
             :on-key-down (fn [e]
                           (let [add-comment-node (rum/ref-node s "editor-node")]
                             (when (and (= (.-key e) "Escape")
@@ -249,8 +245,7 @@
             :content-editable true
             :dangerouslySetInnerHTML #js {"__html" @(::initial-add-comment s)}}]
           [:div.add-comment-footer.group
-            (when (and edit-comment-data
-                       (fn? dismiss-reply-cb))
+            (when (fn? dismiss-reply-cb)
               [:button.mlb-reset.close-reply-bt
                 {:on-click (fn [_]
                             (if @(::did-change s)
