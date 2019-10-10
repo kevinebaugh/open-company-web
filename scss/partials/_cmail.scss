@@ -412,14 +412,7 @@ div.cmail-outer {
       @include no-user-select();
 
       @include mobile() {
-        display: block;
-        width: 100%;
-        min-height: 56px;
-        height: auto;
-        border-top-left-radius: 0;
-        border-top-right-radius: 0;
-        padding: 12px 16px;
-        background-color: white;
+        display: none;
       }
 
       &.has-follow-ups-button {
@@ -703,6 +696,15 @@ div.cmail-outer {
 
         @include mobile() {
           margin-top: 0;
+          height: unset;
+          min-height: 32px;
+          position: fixed;
+          top: #{$mobile_navbar_height}px;
+          left: 0;
+          width: 100vw;
+          margin: 0;
+          border-radius: 0;
+          padding: 7px 32px;
         }
       }
     }
@@ -782,8 +784,8 @@ div.cmail-outer {
         @include mobile() {
           display: block;
           position: absolute;
-          right: 16px;
-          top: 16px;
+          right: 4px;
+          top: 4px;
 
           button.mobile-follow-ups-remove-menu {
             width: 24px;
@@ -836,6 +838,7 @@ div.cmail-outer {
 
         @include mobile() {
           border-radius: 0;
+          padding-top: 0;
         }
       }
     }
