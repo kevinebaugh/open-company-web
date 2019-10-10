@@ -67,6 +67,9 @@
 (def oc-ziggeo-profiles [])
 (def oc-enable-transcriptions false)
 
+;; Billing enabled
+(def billing-enabled true)
+
 ;; WS monitor
 (def ws-monitor-interval 30)
 

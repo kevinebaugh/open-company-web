@@ -65,6 +65,10 @@
   (.preventDefault e)
   (nav-actions/show-reminders))
 
+(defn billing-click [e]
+  (.preventDefault e)
+  (nav-actions/show-org-settings :billing))
+
 (defn- detect-desktop-app
   []
   (when-not ua/desktop-app?
@@ -159,6 +163,15 @@
              :on-click #(team-settings-click s %)}
             [:div.oc-menu-item.digest-settings
               "Admin settings"]])
+        (when (and (not is-mobile?)
+                 ls/billing-enabled
+                 (= user-role :admin)
+                 (router/current-org-slug))
+          [:a.billing
+            {:href "#"
+             :on-click billing-click}
+            [:div.oc-menu-item
+              "Payments & Billing"]])
         (when (and (not is-mobile?)
                    show-invite-people?)
           [:a
